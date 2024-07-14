@@ -77,12 +77,12 @@ std::thread timerThread;
 // This is called when the debug string contains "STARTED"
 void StartTimer()
 {
-   
+
     if (strcmp(gszUserId, gszLastUserId) != 0)
     {
         giSec = 0; // reset mic time
         sprintf_s(gszLastUserId, iMsgLn, "%s", gszUserId);
-        sprintf_s(gszPtMsg, MAX_PATH, "*** Start Mic Timer ID: %s", gszUserId);
+        sprintf_s(gszPtMsg, MAX_PATH, "*** Start Mic Timer ID: %s ***", gszUserId);
         CopyPasteToPaltalk(gszPtMsg);
         std::cout << "Starting Timer ID: " << gszUserId << "\n";
     }
@@ -128,6 +128,18 @@ int main()
 
     // Rename the Console 
     SetConsoleTitle(szConsoleTitle);
+    HWND hwConsole = GetConsoleWindow();
+    if (hwConsole)
+    {
+        RECT rctConsol = {};
+        GetWindowRect(hwConsole, &rctConsol);
+        MoveWindow(hwConsole, rctConsol.left, rctConsol.top, 400, 600, TRUE);
+    }
+    else
+    {
+        std::cout << "ERROR: Could not get the Console handle!\n";
+    }
+
     // Try to Start Paltalk
 
     CreateProcessA(szPaltalkPath, NULL, NULL, NULL, FALSE,
@@ -135,9 +147,9 @@ int main()
     // Save the Paltalk Process id in the clobal gdwPtProcId
     gdwPtProcId = pi.dwProcessId;
 
-    std::cout << "Paltalk ProcH: " << pi.hProcess << " threadH: " << pi.hThread << " dwProcId: " << pi.dwProcessId << "\n";
+    std::cout << "Paltalk ProcH: " << pi.hProcess << "\nthreadH: " << pi.hThread << "\ndwProcId: " << pi.dwProcessId << "\n";
 
-    std::cout << "\nWhen Paltalk is Running, Open the Room for Timming, then enter 1 :";
+    std::cout << "\n When Paltalk is Running,\n Open the Room for Timming, \n If the Room is Not Open, Enter 2\n If it is Open, Enter 1 :";
 
     std::cin >> iUserInput;
     if (iUserInput != 1)
@@ -153,8 +165,8 @@ int main()
         return 3;
     }
 
-    std::cout << "This should be Paltalk window handle: " << ghPtMain << "\n Attaching to Paltalk and entering debug loop\n";
-    
+    std::cout << " Paltalk window handle: " << ghPtMain << "\n Attaching to Paltalk \n Entering debug loop\n";
+
     // Try to attach to Paltalk in DEBUG
     DebugActiveProcess(gdwPtProcId);
 
@@ -201,13 +213,13 @@ int main()
                 {
                     if (strstr(msg, "STARTED"))
                     {
-                        char* pszUser =  strstr(msg, "=") + 6;
+                        char* pszUser = strstr(msg, "=") + 6;
                         sprintf_s(gszUserId, iMsgLn, "%s", pszUser);
                         StartTimer();
-                                            }
+                    }
                     else if (strstr(msg, "STOPPED"))
                     {
-                       StopTimer();
+                        StopTimer();
                     }
 
                 }
@@ -260,7 +272,7 @@ BOOL InitPaltalkWindows(void)
     }
 
     // Getting and outputing Platalk room title
-    std::cout << "This should be the room title: " << szTitle << "\n";
+    std::cout << " Paltalk Room Title: " << szTitle << "\n";
 
     // Make the Paltalk Room window the HWND_TOPMOST 
     SetWindowPos(ghPtMain, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
@@ -343,7 +355,6 @@ BOOL CopyPasteToPaltalk(char* szText)
         }
 
     }
-
 
     return TRUE;
 }
