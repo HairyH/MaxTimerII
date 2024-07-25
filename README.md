@@ -4,7 +4,7 @@ MaxTimerII Paltalk Timer Readme
 MaxTimerII.exe is a timer for the new (Qt based) Paltalk chat program. It is timing how long chatter is talking. At its basic level, it is a simple debugger, starting and controlling the Paltalk program. It getting debug strings from the Paltalk program, indicating when a chatter is talking and releasing the microphone (mic). For this reason, it should be run by itself alone on a Windows computer.
 
 Installation:
-Since the nature of the MaxTimerII.exe (controlling another program) the computers virus protection, like Windows Defender, may detect it as a dangerous program and remove it automatically from the system. It is not a virus or a dangerous program. You can verify it as it source code available at https://github.com/HairyH/MaxTimerII.git . You can check, or if you do not trust the binary program, compile it yourself, using VS2022 development environment.
+Since the nature of the MaxTimerII.exe (controlling another program) the computers virus protection, like Windows Defender, may detect it as a dangerous program and remove it automatically from the system. It is not a virus or a dangerous program. You can verify it as the source code available at https://github.com/HairyH/MaxTimerII.git . You can check, or if you do not trust the binary program, compile it yourself, using VS2022 development environment.
 So, before you download, or extract the exe file from the zip file, you should temporary disable you virus protection monitoring. Extract the MaxTimerII.exe from the zip file and put it in a folder or onto your Desktop. In your virus protection system make an exception to the MaxTimerII.exe and switch the monitoring back on.
 
 Usage:
