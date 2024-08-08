@@ -51,9 +51,13 @@ void TimerCallback()
     giSec += giItval;
     iMin = giSec / 60;
     iSec = giSec % 60;
-    sprintf_s(gszPtMsg, MAX_PATH, "*** Mic is on for: %02d:%02d min. ***", iMin, iSec);
-    CopyPasteToPaltalk(gszPtMsg);
-    std::cout << "Timer running for: " << giSec << std::endl;
+
+    if ((giSec % 30) == 0)
+    {
+       sprintf_s(gszPtMsg, MAX_PATH, "*** Mic is on for: %02d:%02d min. ***", iMin, iSec);
+       CopyPasteToPaltalk(gszPtMsg);
+       std::cout << "Timer running for: " << giSec << std::endl;
+    }
 }
 
 // This Timer Thread is independent from the main program thread
