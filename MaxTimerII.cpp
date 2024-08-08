@@ -18,7 +18,7 @@ char szAppName[] = "MaxTimerII";
 // Global variables 
 const int iMsgLn = 256;
 int giSec = 0;
-int giItval = 30;
+int giItval = 5;
 char gszMsg[iMsgLn] = { 0 };
 char gszUserId[iMsgLn] = { 0 };
 char gszLastUserId[iMsgLn] = { 0 };
